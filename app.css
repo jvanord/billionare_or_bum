@@ -1,11 +1,30 @@
+body,td,input { font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; }
+.hidden { display: none; }
 #loading {
 	margin: 3em;
 }
 #loading > h1 {
+	
 	vertical-align: center;
 	line-height: 64px;
 }
 #loading > img {
 	float:left;
 	margin-right: 2em;
+}
+#main {
+	max-width: 1024px;
+    margin: 0 auto;
+}
+#main > h1 { text-align: center; font-size: 36px }
+#intro > #and { text-align: center; font-size: larger; font-weight: bold; }
+#intro > #iphone { text-align: center; font-size: xx-large; font-weight: bold; }
+#daysleft { text-align: center;}
+img#loser {float: left;}
+img#loser{float: right;}
+#progress #bar {
+	background-color: blue;
+    width: 300px;
+    display: inline-block;
+    height: 14px;
 }

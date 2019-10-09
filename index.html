@@ -5,13 +5,47 @@
 		<link rel="stylesheet" href="app.css" />
 	</head>
 	<body>
+		<!--
+			RESORUCES
+			
+
+		-->
 		<div id="loading">
 			<img src="loading.gif"/>
 			<h1>
 				Loading App...
 			</h1>
 		</div>
-		<div id="main"></div>
+		<div id="main" class="hidden">
+			<h1>Billionaire or Bum?</h1>
+			<div id="intro">
+				<p>
+					Do you think rich people look different than poor people?
+					Do you think you can tell the difference between a billionaire and a bum?
+					Play this game every day to find out just how good you are.
+				</p>
+				<p id="and">... And ...</p>
+				<p id="iphone">You could win an iPhone!</p>
+				<p>
+					Come back every day for a new quiz. Earn enough points before Thanksgiving to get your prize!
+					Don't forget to check every day because you lose the points if you miss the day.
+				</p>
+			</div>
+			<div id="progress">
+				<div id="daysleft"><span>0</span> Days Left!</div>
+				<div>
+					<img id="loser" src="loser.png" alt="Loser" />
+					<img id="winner" src="winner.png" alt="Winner" />
+					<div id="bar"></div>
+				</div>
+			</div>
+			<div id="today">
+
+			</div>
+			<div id="history">
+
+			</div>
+		</div>
 		<script src="app.js"></script>
 	</body>
 </html>
