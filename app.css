@@ -1,0 +1,11 @@
+#loading {
+	margin: 3em;
+}
+#loading > h1 {
+	vertical-align: center;
+	line-height: 64px;
+}
+#loading > img {
+	float:left;
+	margin-right: 2em;
+}
