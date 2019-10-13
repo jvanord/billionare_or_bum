@@ -61,13 +61,17 @@ img#winner {
 	float: right;
 	height: 100px;
 }
-#progress #bar {
+#progress-bar {
 	background-color: teal;
-	width: 300px;
+	width: 0px;
 	height: 100px;
 	display: inline-block;
 	text-align: center;
 	color: white;
 	line-height: 100px;
 	font-size: 24px;
+}
+#progress-bar.noprogress{
+	color: red;
+	background-color: initial;
 }
