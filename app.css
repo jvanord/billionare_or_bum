@@ -7,7 +7,7 @@ input {
 h1,
 h2,
 h3 {
-	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif; color: teal;
 }
 .hidden {
 	display: none;
@@ -23,6 +23,13 @@ h3 {
 	float: left;
 	margin-right: 2em;
 }
+#disaster{
+	color: #900;
+  background-color: #fcc;
+  padding: 1em;
+  font-size: x-large;
+}
+#disaster h1 { text-align: center; color: #900; }
 #main {
 	max-width: 1024px;
 	margin: 0 auto;
@@ -62,4 +69,5 @@ img#winner {
 	text-align: center;
 	color: white;
 	line-height: 100px;
+	font-size: 24px;
 }

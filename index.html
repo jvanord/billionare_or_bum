@@ -9,7 +9,7 @@
 			RESORUCES
 			https://www.forbes.com/billionaires/#3c4c538a251c
 			https://billionaireorbum-9acb.restdb.io/home/
-			
+
 
 		-->
 		<div id="loading">
@@ -17,6 +17,11 @@
 			<h1>
 				Loading App...
 			</h1>
+		</div>
+		<div id="disaster" class="hidden">
+			<h1>DISASTER!</h1>
+			<p>Something horrible happened and we can't keep running this app! :(</p>
+			<p id="disaster-text"></p>
 		</div>
 		<div id="main" class="hidden">
 			<h1>Billionaire or Bum?</h1>
@@ -49,8 +54,11 @@
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+		<script src="update.js"></script>
 		<script src="app.js"></script>
-		<script type="javascript">
-			app.run();
+		<script>
+			$(function(){
+				app.run();
+			});
 		</script>
 </html>
