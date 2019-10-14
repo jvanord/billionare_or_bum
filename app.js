@@ -35,7 +35,7 @@ var app = function () {
 			}).text(Math.round(percent * 100) + '%');
 		} else {
 			$('#progress-bar').addClass('noprogress').css({
-				'width': totalW + 'px',
+				'width': totalW + 'px'
 			}).text('NO PROGRESS');
 		}
 	}
@@ -43,7 +43,7 @@ var app = function () {
 	function refreshQuestions() {
 		$('#answered,#unanswered').html('');
 		var unanswered = db.getUnansweredQuestions();
-		if (!!unanswered.length) {
+		if (unanswered.length) {
 			$('#unanswered').append($('<li/>').text('You have some unanswered quizzes.'));
 
 		} else {
@@ -75,7 +75,7 @@ var db = function () {
 			_internal = data;
 			console.log('Data Loaded', _internal);
 			var userEmail = prompt('Log in by entering your email address here:').trim();
-			if (userEmail == 'Q') userEmail = 'jvanord@indasysllc.com';
+			if (userEmail === 'Q') userEmail = 'jvanord@indasysllc.com';
 			for (var u = 0; u < _internal.users.length; u++) {
 				if (_internal.users[u].email === userEmail) {
 					_currentUser = _internal.users[u];
@@ -132,7 +132,7 @@ var db = function () {
 		return $.grep(_internal.questions, function (q, i) {
 			if (new Date(q.available) > NOW) return false;
 			var m = $.grep(_currentUser.answers || [], function (a, i) {
-				return a.qid == q.qid && !a.answer;
+				return a.qid === q.qid && !a.answer;
 			});
 			return m && m.length;
 		});
@@ -142,7 +142,7 @@ var db = function () {
 		return $.grep(_internal.questions, function (q, i) {
 			if (new Date(q.available) > NOW) return false;
 			var m = $.grep(_currentUser.answers || [], function (a, i) {
-				return a.qid == q.qid && !!a.answer;
+				return a.qid === q.qid && !!a.answer;
 			});
 			return !m || !m.length;
 		});
