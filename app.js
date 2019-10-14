@@ -1,4 +1,5 @@
 var app = function() {
+
   function run() {
     console.log('Loading App ...');
     if (!window.jQuery) return disaster('JQuery didn\'t load - it\'s all fucked up. Maybe try relaoding the page?');
@@ -8,7 +9,8 @@ var app = function() {
   function onLoaded() {
     $('#loading').hide();
     $('#main').removeClass('hidden');
-    showProgress();
+    updateProgress();
+    refreshQuestions();
     console.log('App Loaded');
   }
 
@@ -18,11 +20,13 @@ var app = function() {
     $('#disaster').removeClass('hidden');
   }
 
-  function showProgress() {
+  function updateProgress() {
     var user = db.getUser();
-    var possible = db.totalPoints();
+    var possible = db.getPossiblePoints();
     $('#daysleft-days').text(getDaysLeft());
     $('#daysleft-name').text(user.name);
+    $('#daysleft-points').text(user.points || 0);
+    $('#daysleft-possible').text(possible);
     var totalW = $('#progress').width() - $('#loser').width() - $('#winner').width();
     if (user.points > 0) {
       var percent = user.points / possible;
@@ -36,8 +40,16 @@ var app = function() {
     }
   }
 
-  function showQuestions() {
-		
+  function refreshQuestions() {
+    $('#answered,#unanswered').html('');
+    var unanswered = db.getUnansweredQuestions();
+    if (!!unanswered.length) {
+      $('#unanswered').append($('<li/>').text('You have some unanswered quizzes.'));
+
+    } else {
+      $('#unanswered').append($('<li/>').text('You have no unanswered quizzes. Come back tomorrow for more.'));
+    }
+    var answered = db.getAnsweredQuestions();
   }
 
   function getDaysLeft() {
@@ -54,6 +66,7 @@ var app = function() {
 
 var db = function() {
   var DATA_KEY = 'dae90f9e-2a71-4e0e-bb3c-ed08e7c673cb';
+  var NOW = new Date();
   var _internal = {};
   var _currentUser = null;
 
@@ -75,6 +88,9 @@ var db = function() {
       save();
       if (UPDATE) {
         $.extend(true, _internal, UPDATE);
+        _internal.questions = _internal.questions.sort(function(a, b) {
+          return new Date(b.available) - new Date(a.available);
+        });
         save();
         console.log('Data Updated', _internal);
       }
@@ -104,13 +120,39 @@ var db = function() {
     });
   }
 
+  function getPossiblePoints() {
+    return _internal.totalPoints;
+  }
+
+  function getUser() {
+    return $.extend({}, _currentUser);
+  }
+
+  function getAnsweredQuestions() {
+    return $.grep(_internal.questions, function(q, i) {
+      if (new Date(q.available) > NOW) return false;
+      var m = $.grep(_currentUser.answers || [], function(a, i) {
+        return a.qid == q.qid && !a.answer;
+      });
+      return m && m.length;
+    });
+  }
+
+  function getUnansweredQuestions() {
+    return $.grep(_internal.questions, function(q, i) {
+      if (new Date(q.available) > NOW) return false;
+      var m = $.grep(_currentUser.answers || [], function(a, i) {
+        return a.qid == q.qid && !!a.answer;
+      });
+      return !m || !m.length;
+    });
+  }
+
   return {
     load,
-    totalPoints: function() {
-      return _internal.totalPoints;
-    },
-    getUser: function() {
-      return $.extend({}, _currentUser);
-    }
+    getPossiblePoints,
+    getUser,
+    getAnsweredQuestions,
+    getUnansweredQuestions
   };
 }();

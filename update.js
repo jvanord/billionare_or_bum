@@ -3,7 +3,8 @@ var UPDATE = {
   questions: [
     {
       qid: 1,
-      description: 'This guy is rich.'
+      description: 'This guy is rich.',
+      available: '2019-10-13'
     }
   ],
   users: [

@@ -12,6 +12,7 @@ h3 {
 .hidden {
 	display: none;
 }
+.center{text-align: center;}
 #loading {
 	margin: 3em;
 }
