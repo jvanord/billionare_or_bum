@@ -87,14 +87,14 @@ var app = function () {
 
 	function $createAnsweredLi(q) {
 		return $('<li/>').addClass(q.correct ? 'correct' : 'wrong')
+			.append($('<img/>').attr('src', q.image))
 			.append($('<h2/>').text(q.correctAnswer).append($('<span/>').text(q.correct ? 'CORRECT' : 'WRONG')))
-			.append($('<p/>').text(q.description))
-			.append($('<img/>').attr('src', q.image));
+			.append($('<p/>').text(q.description));
 	}
 
 	function submitAnswer(qid, answer) {
 		if (!confirm('Is ' + answer + ' your final answer? You can\'t change it later.')) return;
-		console.log('Recording answer:', qid, answer);
+		db.recordAnswer(qid, answer);
 		refreshQuestions();
 	};
 
@@ -203,11 +203,44 @@ var db = function () {
 		return r;
 	}
 
+	function recordAnswer(qid, answer) {
+		var question, match;
+		for (var i = 0; i < _internal.questions.length; i++) {
+			if (_internal.questions[i].qid === qid) {
+				question = _internal.questions[i];
+				break;
+			}
+		}
+		if (!question) app.disaster('The question you answered could not be found.');
+		var correct = answer === question.correctAnswer;
+		if (correct)
+			_currentUser.points += question.points;
+		var newAnswer = {
+			qid,
+			answer,
+			correct
+		};
+		if (!_currentUser.answers || !_currentUser.answers.length)
+			_currentUser.answers = [];
+		for (var i = 0; i < _currentUser.answers.length; i++) {
+			if (_currentUser.answers[i].qid === qid) {
+				match = _currentUser.answers[i];
+				break;
+			}
+		}
+		if (match)
+			_currentUser.answers[i] = newAnswer;
+		else
+			_currentUser.answers.push(newAnswer);
+		save();
+	}
+
 	return {
 		load,
 		getPossiblePoints,
 		getUser,
 		getAnsweredQuestions,
-		getUnansweredQuestions
+		getUnansweredQuestions,
+		recordAnswer
 	};
 }();
