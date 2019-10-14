@@ -106,6 +106,7 @@ img#winner {
 	list-style-type: none;
 	list-style-position: inside;
 	padding: 0 0.5em;
+	min-height: 255px;
 }
 #questions li img {
 	width: 300px;

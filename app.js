@@ -116,9 +116,14 @@ var app = function () {
 		});
 	};
 
+	function onResize(){
+		updateProgress();
+	}
+
 	return {
 		run,
-		disaster
+		disaster,
+		onResize
 	};
 }();
 
