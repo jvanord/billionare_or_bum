@@ -18,9 +18,11 @@ h3 {
 }
 h2 > span {
 	font-size: smaller;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	float: right;
 	padding: 0.5em 1em;
 	border-radius: 1em;
+	background-color: #cff;
 }
 .wrong h2 > span {
 	color: red;
@@ -122,8 +124,8 @@ img#winner {
 	color: white;
 	background-color: teal;
 	font-weight: bold;
-	margin: 0 0 1em 320px;
-	padding: 20px;
+	margin: 0 0 20px 320px;
+	padding: 16px;
 	border-radius: 1em;
 	text-decoration: none;
 }

@@ -71,7 +71,7 @@ var app = function () {
 
 	function $createUnansweredLi(q) {
 		return $('<li/>')
-			.append($('<h2/>').text('Billionaire or Bum?'))
+			.append($('<h2/>').text('Billionaire or Bum?').append($('<span/>').text(q.points+'pts')))
 			.append($('<img/>').attr('src', q.image))
 			.append($('<div/>').addClass('buttons')
 				.append($('<a/>')
@@ -131,9 +131,9 @@ var db = function () {
 
 	function load(callback) {
 		$.get(STORAGE_LOC, function (data) {
-			_internal = data;
+			_internal = data.ok ? data.result : data;
 			console.log('Data Loaded', _internal);
-			if (UPDATE) {
+			if (!!window.UPDATE) {
 				if (UPDATE.replace) _internal = {};
 				$.extend(true, _internal, UPDATE);
 				_internal.questions = _internal.questions.sort(function (a, b) {

@@ -1,6 +1,5 @@
 var UPDATE = {
-	replace: true,
-	totalPoints: 1000,
+	replace: false,
 	questions: [
 		{
 			qid: 1,
@@ -17,20 +16,6 @@ var UPDATE = {
 			image: 'https://www.careermetis.com/wp-content/uploads/2015/08/successful_copier_sales_rep2.jpg',
 			correctAnswer: 'BUM',
 			points: 50
-		}
-	],
-	users: [
-		{
-			name: "Jay",
-			email: "jvanord@indasysllc.com",
-			points: 0,
-			answers: []
-		},
-		{
-			name: "Tony",
-			email: "minhtony6@gmail.com",
-			points: 0,
-			answers: []
 		}
 	]
 };
