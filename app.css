@@ -23,6 +23,7 @@ h2 > span {
 	padding: 0.5em 1em;
 	border-radius: 1em;
 	background-color: #cff;
+	margin-bottom: 30px;
 }
 .wrong h2 > span {
 	color: red;
@@ -119,6 +120,7 @@ img#winner {
 #unanswered li.none {
 	font-weight: bold;
 	font-style: italic;
+	min-height: 100px;
 }
 #unanswered .buttons a {
 	display: block;

@@ -148,8 +148,8 @@ var db = function () {
 			}
 			var userEmail = prompt('Log in by entering your email address here:');
 			if (!userEmail) disaster('You can\'t play if you don\'t log in. Reload the page to try again.');
-			userEmail = userEmail.trim();
 			if (userEmail === 'Q') userEmail = 'jvanord@indasysllc.com';
+			userEmail = userEmail.trim().toLowerCase();
 			for (var u = 0; u < _internal.users.length; u++) {
 				if (_internal.users[u].email === userEmail) {
 					_currentUser = _internal.users[u];
