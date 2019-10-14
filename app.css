@@ -110,7 +110,8 @@ img#winner {
 	min-height: 255px;
 }
 #questions li img {
-	width: 300px;
+	max-height: 200px;
+	max-width: 300px;
 	float: left;
 	margin: 0 20px 20px 0;
 }
@@ -127,7 +128,7 @@ img#winner {
 	color: white;
 	background-color: teal;
 	font-weight: bold;
-	margin: 0 0 20px 320px;
+	margin: 20px 320px;
 	padding: 16px;
 	border-radius: 1em;
 	text-decoration: none;
