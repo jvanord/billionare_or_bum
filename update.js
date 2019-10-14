@@ -1,3 +1,4 @@
+// https://www.forbes.com/billionaires/#3c4c538a251c
 var UPDATE = {
 	replace: false,
 	questions: [
