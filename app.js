@@ -127,6 +127,7 @@ var db = function () {
 			_currentUser.lastLogin = new Date();
 			save();
 			if (UPDATE) {
+				if (UPDATE.replace) _internal = {};
 				$.extend(true, _internal, UPDATE);
 				_internal.questions = _internal.questions.sort(function (a, b) {
 					return new Date(b.available) - new Date(a.available);

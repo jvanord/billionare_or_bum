@@ -113,6 +113,10 @@ img#winner {
 #unanswered li {
 	text-align: center;
 }
+#unanswered li.none {
+	font-weight: bold;
+	font-style: italic;
+}
 #unanswered .buttons a {
 	display: block;
 	color: white;

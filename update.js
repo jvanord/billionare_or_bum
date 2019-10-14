@@ -1,4 +1,5 @@
 var UPDATE = {
+	replace: false,
 	totalPoints: 1000,
 	questions: [
 		{
@@ -19,7 +20,9 @@ var UPDATE = {
 		},
 		{
 			name: "Tony",
-			email: "minhtony6@gmail.com"
+			email: "minhtony6@gmail.com",
+			points: 0,
+			answers: []
 		}
 	]
 };
