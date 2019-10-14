@@ -3,26 +3,19 @@ var UPDATE = {
   questions: [
     {
       qid: 1,
-      description: 'This guy is rich.',
-      available: '2019-10-13'
+      description: 'This is Carlos Slim Helu, Mexico\'s richest man. He and his family are worth about $65 Billion.',
+	  available: '2019-10-13',
+	  image: 'http://banderasnews.com/0704/images/carlosslimhelu.jpg',
+	  correctAnswer: 'BILLIONAIRE',
+	  points: 50
     }
   ],
   users: [
     {
-      name: "Tony",
-      email: "minhtony6@gmail.com",
-      answers:[
-        {
-          qid: 1,
-          answer: null,
-          correct: null
-        }
-      ]
-    },
-    {
       name: "Jay",
       email: "jvanord@indasysllc.com",
-      points: 50
+	  points: 0,
+	  answers: []
     }
   ]
 };

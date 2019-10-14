@@ -76,3 +76,22 @@ img#winner {
 	color: red;
 	background-color: initial;
 }
+#questions li {
+    list-style-type: none;
+    list-style-position: inside;
+    text-align: center;
+}
+#questions li img {
+	width: 300px;
+	float: left;
+}
+#questions .buttons a {
+	display: block;
+	color: white;
+	background-color: teal;
+	font-weight: bold;
+	margin: 0 0 1em 320px;
+	padding: .5em 1em;
+	border-radius: 1em;
+	text-decoration: none;
+}

@@ -1,3 +1,6 @@
+var BILLIONAIRE = 'BILLIONAIRE';
+var BUM = 'BUM';
+
 var app = function () {
 
 	function run() {
@@ -30,6 +33,10 @@ var app = function () {
 		var totalW = $('#progress').width() - $('#loser').width() - $('#winner').width();
 		if (user.points > 0) {
 			var percent = user.points / possible;
+			if (percent >= 100) {
+				percent = 100;
+				$('#youwin').removeClass('hidden');
+			}
 			$('#progress-bar').removeClass('noprogress').animate({
 				width: totalW * percent
 			}).text(Math.round(percent * 100) + '%');
@@ -40,23 +47,56 @@ var app = function () {
 		}
 	}
 
-	function refreshQuestions() {
-		$('#answered,#unanswered').html('');
-		var unanswered = db.getUnansweredQuestions();
-		if (unanswered.length) {
-			$('#unanswered').append($('<li/>').text('You have some unanswered quizzes.'));
-
-		} else {
-			$('#unanswered').append($('<li/>').text('You have no unanswered quizzes. Come back tomorrow for more.'));
-		}
-		var answered = db.getAnsweredQuestions();
-	}
-
 	function getDaysLeft() {
 		var now = new Date();
 		var end = new Date(2019, 11, 28);
 		return Math.round((end - now) / (1000 * 60 * 60 * 24));
 	}
+
+	function refreshQuestions() {
+		$('#answered,#unanswered').html('');
+		var unanswered = db.getUnansweredQuestions();
+		if (!unanswered.length) {
+			$('#unanswered').append($('<li/>').addClass('none')
+				.text('You have answered every quiz available so far. Come back tomorrow for a new one.'));
+		}
+		for (var i = 0; i < unanswered.length; i++) {
+			$('#unanswered').append($createUnansweredLi(unanswered[i]));
+		}
+		var answered = db.getAnsweredQuestions();
+		for (var i = 0; i < answered.length; i++) {
+			$('#answered').append($createAnsweredLi(answered[i]));
+		}
+	}
+
+	function $createUnansweredLi(q) {
+		return $('<li/>')
+			.append($('<h2/>').text('Billionaire or Bum?'))
+			.append($('<img/>').attr('src', q.image))
+			.append($('<div/>').addClass('buttons')
+				.append($('<a/>').text('Billionaire').attr('href', '#').click(function (e) {
+					e.preventDefault();
+					submitAnswer(q.qid, BILLIONAIRE);
+				}))
+				.append($('<a/>').text('Bum').attr('href', '#').click(function (e) {
+					e.preventDefault();
+					submitAnswer(q.qid, BUM);
+				}))
+			);
+	}
+
+	function $createAnsweredLi(q) {
+		return $('<li/>').addClass(q.correct ? 'correct' : 'wrong')
+			.append($('<h2/>').text(q.correctAnswer).append($('<span/>').text(q.correct ? 'CORRECT' : 'WRONG')))
+			.append($('<p/>').text(q.description))
+			.append($('<img/>').attr('src', q.image));
+	}
+
+	function submitAnswer(qid, answer) {
+		if (!confirm('Is ' + answer + ' your final answer? You can\'t change it later.')) return;
+		console.log('Recording answer:', qid, answer);
+		refreshQuestions();
+	};
 
 	return {
 		run,
@@ -129,23 +169,38 @@ var db = function () {
 	}
 
 	function getAnsweredQuestions() {
-		return $.grep(_internal.questions, function (q, i) {
-			if (new Date(q.available) > NOW) return false;
-			var m = $.grep(_currentUser.answers || [], function (a, i) {
-				return a.qid === q.qid && !a.answer;
-			});
-			return m && m.length;
-		});
+		var r = [];
+		for (var i = 0; i < _internal.questions.length; i++) {
+			var q = _internal.questions[i];
+			if (new Date(q.available) > NOW) continue;
+			if (!_currentUser.answers || !_currentUser.answers.length) continue;
+			for (var j = 0; j < _currentUser.answers.length; j++) {
+				var a = _currentUser.answers[j];
+				if (a.qid !== q.qid) continue;
+				if (a.answer) r.push($.extend({}, q, a));
+				break;
+			}
+		}
+		return r;
 	}
 
 	function getUnansweredQuestions() {
-		return $.grep(_internal.questions, function (q, i) {
-			if (new Date(q.available) > NOW) return false;
-			var m = $.grep(_currentUser.answers || [], function (a, i) {
-				return a.qid === q.qid && !!a.answer;
-			});
-			return !m || !m.length;
-		});
+		var r = [];
+		for (var i = 0; i < _internal.questions.length; i++) {
+			var q = _internal.questions[i];
+			if (new Date(q.available) > NOW) continue;
+			if (!_currentUser.answers || !_currentUser.answers.length) {
+				r.push($.extend({}, q));
+				continue;
+			}
+			for (var j = 0; j < _currentUser.answers.length; j++) {
+				var a = _currentUser.answers[j];
+				if (a.qid !== q.qid) continue;
+				if (!a.answer) r.push($.extend({}, q, a));
+				break;
+			}
+		}
+		return r;
 	}
 
 	return {
