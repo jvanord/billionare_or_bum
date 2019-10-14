@@ -74,14 +74,16 @@ var app = function () {
 			.append($('<h2/>').text('Billionaire or Bum?'))
 			.append($('<img/>').attr('src', q.image))
 			.append($('<div/>').addClass('buttons')
-				.append($('<a/>').text('Billionaire').attr('href', '#').click(function (e) {
-					e.preventDefault();
-					submitAnswer(q.qid, BILLIONAIRE);
-				}))
-				.append($('<a/>').text('Bum').attr('href', '#').click(function (e) {
-					e.preventDefault();
-					submitAnswer(q.qid, BUM);
-				}))
+				.append($('<a/>')
+					.text('Billionaire')
+					.attr('href', '#')
+					.data('qid', q.qid)
+					.click(onChooseBillionaire))
+				.append($('<a/>')
+					.text('Bum')
+					.attr('href', '#')
+					.data('qid', q.qid)
+					.click(onChooseBum))
 			);
 	}
 
@@ -92,10 +94,26 @@ var app = function () {
 			.append($('<p/>').text(q.description));
 	}
 
+	function onChooseBillionaire(e){
+		e.preventDefault();
+		var qid = $(e.currentTarget).data('qid');
+		if (!qid) return disaster('Could not get the ID of the question being answered.') && false;
+		submitAnswer(qid, BILLIONAIRE);
+	}
+
+	function onChooseBum(e){
+		e.preventDefault();
+		var qid = $(e.currentTarget).data('qid');
+		if (!qid) return disaster('Could not get the ID of the question being answered.') && false;
+		submitAnswer(qid, BUM);
+	}
+
 	function submitAnswer(qid, answer) {
 		if (!confirm('Is ' + answer + ' your final answer? You can\'t change it later.')) return;
-		db.recordAnswer(qid, answer);
-		refreshQuestions();
+		db.recordAnswer(qid, answer, function () {
+			refreshQuestions();
+			updateProgress();
+		});
 	};
 
 	return {
@@ -105,16 +123,27 @@ var app = function () {
 }();
 
 var db = function () {
-	var DATA_KEY = 'dae90f9e-2a71-4e0e-bb3c-ed08e7c673cb';
+	var DATA_KEY = 'https://jsonstorage.net/api/items/dae90f9e-2a71-4e0e-bb3c-ed08e7c673cb';
+	var STORAGE_LOC = 'https://www.jsonstore.io/b89c315ae764b9b42978d649f0c99bb8f90409901a6b26bdfbf42e69afd9e768';
 	var NOW = new Date();
 	var _internal = {};
 	var _currentUser = null;
 
 	function load(callback) {
-		$.get('https://jsonstorage.net/api/items/' + DATA_KEY, function (data) {
+		$.get(STORAGE_LOC, function (data) {
 			_internal = data;
 			console.log('Data Loaded', _internal);
-			var userEmail = prompt('Log in by entering your email address here:').trim();
+			if (UPDATE) {
+				if (UPDATE.replace) _internal = {};
+				$.extend(true, _internal, UPDATE);
+				_internal.questions = _internal.questions.sort(function (a, b) {
+					return new Date(b.available) - new Date(a.available);
+				});
+				console.log('Data Updated', _internal);
+			}
+			var userEmail = prompt('Log in by entering your email address here:');
+			if (!userEmail) disaster('You can\'t play if you don\'t log in. Reload the page to try again.');
+			userEmail = userEmail.trim();
 			if (userEmail === 'Q') userEmail = 'jvanord@indasysllc.com';
 			for (var u = 0; u < _internal.users.length; u++) {
 				if (_internal.users[u].email === userEmail) {
@@ -126,29 +155,21 @@ var db = function () {
 				return app.disaster('That email is not registered as a valid user. Reload the page to try again.') && false;
 			_currentUser.lastLogin = new Date();
 			save();
-			if (UPDATE) {
-				if (UPDATE.replace) _internal = {};
-				$.extend(true, _internal, UPDATE);
-				_internal.questions = _internal.questions.sort(function (a, b) {
-					return new Date(b.available) - new Date(a.available);
-				});
-				save();
-				console.log('Data Updated', _internal);
-			}
 			if (typeof callback === 'function')
 				callback.call();
 		});
 	}
 
-	function save() {
+	function save(callback) {
 		$.ajax({
-			url: 'https://jsonstorage.net/api/items/' + DATA_KEY,
+			url: STORAGE_LOC,
 			type: 'PUT',
 			data: JSON.stringify(_internal),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
 			success: function (data, textStatus, jqXHR) {
-
+				if (typeof callback === 'function')
+					callback.call();
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
 				console.error('DB Save Error', {
@@ -188,23 +209,22 @@ var db = function () {
 	function getUnansweredQuestions() {
 		var r = [];
 		for (var i = 0; i < _internal.questions.length; i++) {
+			var answered = false;
 			var q = _internal.questions[i];
 			if (new Date(q.available) > NOW) continue;
-			if (!_currentUser.answers || !_currentUser.answers.length) {
-				r.push($.extend({}, q));
-				continue;
+			if (_currentUser.answers && _currentUser.answers.length) {
+				for (var j = 0; j < _currentUser.answers.length; j++) {
+					var a = _currentUser.answers[j];
+					if (a.qid !== q.qid) continue;
+					answered = answered || !!a.answer;
+				}
 			}
-			for (var j = 0; j < _currentUser.answers.length; j++) {
-				var a = _currentUser.answers[j];
-				if (a.qid !== q.qid) continue;
-				if (!a.answer) r.push($.extend({}, q, a));
-				break;
-			}
+			if (!answered) r.push($.extend({}, q));
 		}
 		return r;
 	}
 
-	function recordAnswer(qid, answer) {
+	function recordAnswer(qid, answer, callback) {
 		var question, match;
 		for (var i = 0; i < _internal.questions.length; i++) {
 			if (_internal.questions[i].qid === qid) {
@@ -215,7 +235,7 @@ var db = function () {
 		if (!question) app.disaster('The question you answered could not be found.');
 		var correct = answer === question.correctAnswer;
 		if (correct)
-			_currentUser.points += question.points;
+			_currentUser.points += question.points; //givePoints(_currentUser.email, question.points);
 		var newAnswer = {
 			qid,
 			answer,
@@ -233,7 +253,16 @@ var db = function () {
 			_currentUser.answers[i] = newAnswer;
 		else
 			_currentUser.answers.push(newAnswer);
-		save();
+		save(callback);
+	}
+
+	function givePoints(email, points) {
+		for (var i = 0; i < _internal.users.length; i++) {
+			if (_internal.users[i].email === email) {
+				_internal.users[i].points = _internal.users[i].points + points;
+				break;
+			}
+		}
 	}
 
 	return {
