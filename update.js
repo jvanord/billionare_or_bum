@@ -9,7 +9,7 @@ var noUPDATE = {
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Lewis Hamilton, a british Formula One race car driver. In 2016 he dressed up as the Joker for Halloween and people didn't recognize him.",
 			"image": "i/13.jpg",
-			"points": 10,
+			"points": 20,
 			"qid": 19
 		},
 		{
@@ -17,7 +17,7 @@ var noUPDATE = {
 			"correctAnswer": "BUM",
 			"description": "Absolutely nobody. He does have a good hairstylist, though. I wish my hair looked like that.",
 			"image": "i/11.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 18
 		},
 		{
@@ -25,7 +25,7 @@ var noUPDATE = {
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Melinda Gates, wife of Bill Gates and found of the 'Bill and Melinda Gates Foundation.",
 			"image": "i/2.png",
-			"points": 20,
+			"points": 50,
 			"qid": 17
 		},
 		{
@@ -33,7 +33,7 @@ var noUPDATE = {
 			"correctAnswer": "BUM",
 			"description": "Another nobody. I like his turban, though. I should wear a turban.",
 			"image": "i/10.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 16
 		},
 		{
@@ -41,7 +41,7 @@ var noUPDATE = {
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Jay-Z. You might know him as Beyonc&eacute;'s husband, but he's actually famous for a lot of things.",
 			"image": "i/9.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 15
 		},
 		{
@@ -49,7 +49,7 @@ var noUPDATE = {
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Jack Ma, the founder of Alibaba. He's worth $37.3 Billion. You should make an Alibaba like him.",
 			"image": "i/1.png",
-			"points": 20,
+			"points": 50,
 			"qid": 14
 		},
 		{
@@ -57,7 +57,7 @@ var noUPDATE = {
 			"correctAnswer": "BILLIONAIRE",
 			"description": "Suhail Bahwan is from Oman and is worth $4.1 billion.",
 			"image": "i/1.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 13
 		},
 		{
@@ -65,7 +65,7 @@ var noUPDATE = {
 			"correctAnswer": "BUM",
 			"description": "He looks like a tech billionaire, right? Nope. Just some guy.",
 			"image": "i/12.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 12
 		},
 		{
@@ -73,7 +73,7 @@ var noUPDATE = {
 			"correctAnswer": "BUM",
 			"description": "Another stock photo image. He looks stylish, sure. But he's nobody.",
 			"image": "i/8.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 11
 		},
 		{
@@ -81,7 +81,7 @@ var noUPDATE = {
 			"correctAnswer": "BUM",
 			"description": "This is some woman named Lisa Sawyer. She lives on the streets in Seattle. The local news took a picture of her for a story.",
 			"image": "i/6.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 10
 		},
 		{
@@ -89,7 +89,7 @@ var noUPDATE = {
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Tiger Woods, the famous golfer, when he got arrested. Even though he's been to jail, he's earned over $1.5 Billion in his lifetime ... playing golf. Golf!",
 			"image": "i/2.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 9
 		},
 		{
@@ -97,7 +97,7 @@ var noUPDATE = {
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Mary-Kate Olsen. She and her twin, Ashley, were famous child actresses who now own a fashion emptire in New York. They hate getting their picture taken. Maybe it wouldn't bother them so much if the didn't look homeless all the time.",
 			"image": "i/7.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 8
 		},
 		{
@@ -105,7 +105,7 @@ var noUPDATE = {
 			"correctAnswer": "BUM",
 			"description": "This is the famous Ukrainian 'stylish homeless man', Slavik. Google said he was famous anyway. I've never heard of him.",
 			"image": "i/4.jpg",
-			"points": 20,
+			"points": 50,
 			"qid": 7
 		},
 		{
@@ -158,17 +158,17 @@ var noUPDATE = {
 		}
 	],
 	"users": [
-		// {
-		// 	"email": "jvanord@indasysllc.com",
-		// 	"name": "Jay"
-		// },
-		// {
-		// 	"email": "minhtony6@gmail.com",
-		// 	"name": "Tony"
-		// },
-		// {
-		// 	"email": "tt",
-		// 	"name": "Tester"
-		// }
+		{
+			"email": "jvanord@indasysllc.com",
+			"name": "Jay"
+		},
+		{
+			"email": "minhtony6@gmail.com",
+			"name": "Tony"
+		},
+		{
+			"email": "tt",
+			"name": "Tester"
+		}
 	]
 };
