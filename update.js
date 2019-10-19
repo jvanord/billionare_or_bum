@@ -23,7 +23,7 @@ var UPDATE = {
 			"available": "2019-10-29",
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Melinda Gates, wife of Bill Gates and found of the 'Bill and Melinda Gates Foundation.",
-			"image": "i/1.webp",
+			"image": "i/2.png",
 			"points": 20,
 			"qid": 17
 		},
