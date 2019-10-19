@@ -10,6 +10,8 @@ var app = function () {
 	}
 
 	function onLoaded() {
+		if (db.getUser().email !== "tt")
+		$(document).on('contextmenu', function(e) { e.preventDefault(); });
 		$('#loading').hide();
 		$('#main').removeClass('hidden');
 		updateProgress();
@@ -91,7 +93,7 @@ var app = function () {
 		return $('<li/>').addClass(q.correct ? 'correct' : 'wrong')
 			.append($('<img/>').attr('src', q.image))
 			.append($('<h2/>').text(q.correctAnswer).append($('<span/>').text(q.correct ? 'CORRECT' : 'WRONG')))
-			.append($('<p/>').text(q.description));
+			.append($('<p/>').html(q.description));
 	}
 
 	function onChooseBillionaire(e){

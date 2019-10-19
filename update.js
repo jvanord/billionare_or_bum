@@ -1,5 +1,6 @@
 // https://www.forbes.com/billionaires/#3c4c538a251c
-var UPDATE = {
+// https://www.moneymozart.com/how-to-identify-the-fake-rich-from-the-real-rich/
+var noUPDATE = {
 	"replace": false,
 	//"totalPoints": 1000,
 	"questions": [
