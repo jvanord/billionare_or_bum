@@ -33,12 +33,11 @@ var app = function () {
 		$('#daysleft-points').text(user.points || 0);
 		$('#daysleft-possible').text(possible);
 		var totalW = $('#progress').width() - $('#loser').width() - $('#winner').width();
-		if (user.points > 0) {
+		if (user.points >= possible) {
+			$('#youwin').removeClass('hidden');
+			$('#progress,#intro').addClass('hidden');
+		} else if (user.points > 0) {
 			var percent = user.points / possible;
-			if (percent >= 100) {
-				percent = 100;
-				$('#youwin').removeClass('hidden');
-			}
 			$('#progress-bar').removeClass('noprogress').animate({
 				width: totalW * percent
 			}).text(Math.round(percent * 100) + '%');
@@ -52,11 +51,17 @@ var app = function () {
 	function getDaysLeft() {
 		var now = new Date();
 		var end = new Date(2019, 11, 28);
+		if (now > end) return 0;
 		return Math.round((end - now) / (1000 * 60 * 60 * 24));
 	}
 
 	function refreshQuestions() {
 		$('#answered,#unanswered').html('');
+		var answered = db.getAnsweredQuestions();
+		for (var i = 0; i < answered.length; i++) {
+			$('#answered').append($createAnsweredLi(answered[i]));
+		}
+		if (getDaysLeft() < 1) return;
 		var unanswered = db.getUnansweredQuestions();
 		if (!unanswered.length) {
 			$('#unanswered').append($('<li/>').addClass('none')
@@ -64,10 +69,6 @@ var app = function () {
 		}
 		for (var i = 0; i < unanswered.length; i++) {
 			$('#unanswered').append($createUnansweredLi(unanswered[i]));
-		}
-		var answered = db.getAnsweredQuestions();
-		for (var i = 0; i < answered.length; i++) {
-			$('#answered').append($createAnsweredLi(answered[i]));
 		}
 	}
 

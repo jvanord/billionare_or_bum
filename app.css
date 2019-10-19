@@ -77,13 +77,14 @@ h2 > span {
 	margin: 3em;
 	font-weight: bold;
 }
-img#loser {
-	float: left;
+#progress img{
 	height: 100px;
 }
-img#winner {
+#progress img#loser {
+	float: left;
+}
+#progress img#winner {
 	float: right;
-	height: 100px;
 }
 #progress-bar {
 	background-color: teal;
@@ -98,6 +99,10 @@ img#winner {
 #progress-bar.noprogress {
 	color: red;
 	background-color: initial;
+}
+#youwin {
+	clear: both;
+	text-align: center;
 }
 #questions ul {
 	padding: 2em 0;
