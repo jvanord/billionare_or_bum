@@ -50,7 +50,7 @@ var app = function () {
 
 	function getDaysLeft() {
 		var now = new Date();
-		var end = new Date(2019, 11, 28);
+		var end = new Date('2019-11-28T05:00:00Z');
 		if (now > end) return 0;
 		return Math.round((end - now) / (1000 * 60 * 60 * 24));
 	}
