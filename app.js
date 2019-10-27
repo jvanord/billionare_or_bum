@@ -131,47 +131,78 @@ var app = function () {
 }();
 
 var db = function () {
-	var DATA_KEY = 'https://jsonstorage.net/api/items/dae90f9e-2a71-4e0e-bb3c-ed08e7c673cb';
-	var STORAGE_LOC = 'https://www.jsonstore.io/b89c315ae764b9b42978d649f0c99bb8f90409901a6b26bdfbf42e69afd9e768';
+	//var STORAGE_LOC = 'https://jsonstorage.net/api/items/dae90f9e-2a71-4e0e-bb3c-ed08e7c673cb';
+	//var STORAGE_LOC = 'https://www.jsonstore.io/b89c315ae764b9b42978d649f0c99bb8f90409901a6b26bdfbf42e69afd9e768';
+	var STORAGE_LOC = 'https://api.jsonbin.io/b/5db5ff328d347e4637a80ad5';
+	var SECRET_KEY = '$2b$10$cRQwRfuTHgCIe9NTrc3Az.NRBZFKRdPDEoE6bfiaHQUb9Z5ZCelvm';
 	var NOW = new Date();
 	var _internal = {};
 	var _currentUser = null;
 
 	function load(callback) {
-		$.get(STORAGE_LOC, function (data) {
-			_internal = data.ok ? data.result : data;
-			console.log('Data Loaded', _internal);
-			if (!!window.UPDATE) {
-				if (UPDATE.replace) _internal = {};
-				$.extend(true, _internal, UPDATE);
-				_internal.questions = _internal.questions.sort(function (a, b) {
-					return new Date(b.available) - new Date(a.available);
+		$.ajax({
+			url: STORAGE_LOC,
+			type: 'GET',
+			contentType: 'application/json; charset=utf-8',
+			headers:{
+				'secret-key': SECRET_KEY
+			},
+			dataType: 'json',
+			success: function (data, textStatus, jqXHR) {
+				if (data.ok) onLoadSuccess(data.result, callback);
+				else if (data.success) onLoadSuccess(data.data, callback);
+				else if (data.questions) onLoadSuccess(data, callback);
+				else app.disaster('Data failed to load from storage location.');
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.error('DB Load Error', {
+					jqXHR,
+					textStatus,
+					errorThrown
 				});
-				console.log('Data Updated', _internal);
+				app.disaster('There was an error loading the data.');
 			}
-			var userEmail = prompt('Log in by entering your email address here:');
-			if (!userEmail) app.disaster('You can\'t play if you don\'t log in. Reload the page to try again.');
-			if (userEmail === 'Q') userEmail = 'jvanord@indasysllc.com';
-			userEmail = userEmail.trim().toLowerCase();
-			for (var u = 0; u < _internal.users.length; u++) {
-				if (_internal.users[u].email === userEmail) {
-					_currentUser = _internal.users[u];
-					break;
-				}
-			}
-			if (!_currentUser)
-				return app.disaster('That email is not registered as a valid user. Reload the page to try again.') && false;
-			_currentUser.lastLogin = new Date();
-			save();
-			if (typeof callback === 'function')
-				callback.call();
+
 		});
+	}
+
+	function onLoadSuccess(data, callback){
+		_internal = data;
+		console.log('Data Loaded', _internal);
+		if (!!window.UPDATE) {
+			if (UPDATE.replace) _internal = {};
+			$.extend(true, _internal, UPDATE);
+			_internal.questions = _internal.questions.sort(function (a, b) {
+				return new Date(b.available) - new Date(a.available);
+			});
+			console.log('Data Updated', _internal);
+		}
+		var userEmail = prompt('Log in by entering your email address here:');
+		if (!userEmail) app.disaster('You can\'t play if you don\'t log in. Reload the page to try again.');
+		if (userEmail === 'Q') userEmail = 'jvanord@indasysllc.com';
+		userEmail = userEmail.trim().toLowerCase();
+		for (var u = 0; u < _internal.users.length; u++) {
+			if (_internal.users[u].email === userEmail) {
+				_currentUser = _internal.users[u];
+				break;
+			}
+		}
+		if (!_currentUser)
+			return app.disaster('That email is not registered as a valid user. Reload the page to try again.') && false;
+		_currentUser.lastLogin = new Date();
+		save();
+		if (typeof callback === 'function')
+			callback.call();	
 	}
 
 	function save(callback) {
 		$.ajax({
 			url: STORAGE_LOC,
 			type: 'PUT',
+			headers:{
+				'secret-key': SECRET_KEY,
+				'versioning': false
+			},
 			data: JSON.stringify(_internal),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
