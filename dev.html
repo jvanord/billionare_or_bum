@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Billionaire or Bum?</title>
+	<style>
+	
+	</style>
+</head>
+<body>
+	<div id="out"></div>
+	<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+	<script src="app.js"></script>
+	<script>
+		$(function () {
+			$('#out').append($('<h1/>').text('Game Summary'));
+			db.getDevSummary(function(summary){
+				outSummary($('#out'), summary);
+			});
+		});
+		function outSummary($element, summary){
+			return dump($element, summary);
+			$.each(summary.users, function(i,user){
+				//outUserData(user);
+			});			
+		}
+		function outUserData($element, user){
+			$.each(user.questions, function(i,q){
+				outQuestionSummary(q);
+			});
+		}
+		function outQuestionSummary($element, question){
+
+		}
+		function outField($parent, label, value){
+			$parent.append($('<div/>').append($('<label/>').text(label)).text(': ' + value));
+		}
+		function dump($element, data){
+			$element.css({'white-space':'pre'}).text(JSON.stringify(data, null, 2));
+		}
+	</script>
+</body>
+</html>

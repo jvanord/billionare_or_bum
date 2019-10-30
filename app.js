@@ -11,7 +11,7 @@ var app = function () {
 
 	function onLoaded() {
 		if (db.getUser().email !== "tt")
-		$(document).on('contextmenu', function(e) { e.preventDefault(); });
+			$(document).on('contextmenu', function (e) { e.preventDefault(); });
 		$('#loading').hide();
 		$('#main').removeClass('hidden');
 		updateProgress();
@@ -74,7 +74,7 @@ var app = function () {
 
 	function $createUnansweredLi(q) {
 		return $('<li/>')
-			.append($('<h2/>').text('Billionaire or Bum?').append($('<span/>').text(q.points+'pts')))
+			.append($('<h2/>').text('Billionaire or Bum?').append($('<span/>').text(q.points + 'pts')))
 			.append($('<img/>').attr('src', q.image))
 			.append($('<div/>').addClass('buttons')
 				.append($('<a/>')
@@ -97,14 +97,14 @@ var app = function () {
 			.append($('<p/>').html(q.description));
 	}
 
-	function onChooseBillionaire(e){
+	function onChooseBillionaire(e) {
 		e.preventDefault();
 		var qid = $(e.currentTarget).data('qid');
 		if (!qid) return disaster('Could not get the ID of the question being answered.') && false;
 		submitAnswer(qid, BILLIONAIRE);
 	}
 
-	function onChooseBum(e){
+	function onChooseBum(e) {
 		e.preventDefault();
 		var qid = $(e.currentTarget).data('qid');
 		if (!qid) return disaster('Could not get the ID of the question being answered.') && false;
@@ -119,7 +119,7 @@ var app = function () {
 		});
 	};
 
-	function onResize(){
+	function onResize() {
 		updateProgress();
 	}
 
@@ -144,7 +144,7 @@ var db = function () {
 			url: STORAGE_LOC,
 			type: 'GET',
 			contentType: 'application/json; charset=utf-8',
-			headers:{
+			headers: {
 				'secret-key': SECRET_KEY
 			},
 			dataType: 'json',
@@ -166,7 +166,7 @@ var db = function () {
 		});
 	}
 
-	function onLoadSuccess(data, callback){
+	function onLoadSuccess(data, callback) {
 		_internal = data;
 		console.log('Data Loaded', _internal);
 		if (!!window.UPDATE) {
@@ -192,14 +192,14 @@ var db = function () {
 		_currentUser.lastLogin = new Date();
 		save();
 		if (typeof callback === 'function')
-			callback.call();	
+			callback.call();
 	}
 
 	function save(callback) {
 		$.ajax({
 			url: STORAGE_LOC,
 			type: 'PUT',
-			headers:{
+			headers: {
 				'secret-key': SECRET_KEY,
 				'versioning': false
 			},
@@ -297,13 +297,54 @@ var db = function () {
 		save(callback);
 	}
 
-	function givePoints(email, points) {
-		for (var i = 0; i < _internal.users.length; i++) {
-			if (_internal.users[i].email === email) {
-				_internal.users[i].points = _internal.users[i].points + points;
-				break;
+	function getDevSummary(callback) {
+		$.ajax({
+			url: STORAGE_LOC,
+			type: 'GET',
+			contentType: 'application/json; charset=utf-8',
+			headers: {
+				'secret-key': SECRET_KEY
+			},
+			dataType: 'json',
+			success: function (response, textStatus, jqXHR) {
+				var result = response.ok ? response.result : response.success ? response.data : response;
+				if (!result.users || !result.users.length) return console.error('Data failed to load from storage location.', jqXHR);
+				var data = { users: [] };
+				var questions = result.questions.sort(function (a, b) { return a.qid - b.qid });
+				for (var ui = 0; ui < result.users.length; ui++) {
+					var user = {
+						name: result.users[ui].name,
+						email: result.users[ui].email,
+						points: result.users[ui].points,
+						lastLogin: result.users[ui].lastLogin,
+						progress: (100 * result.users[ui].points / result.totalPoints).toFixed(2) + '%',
+						questions: []
+					};
+					for (var qi = 0; qi < questions.length; qi++) {
+						var question = $.extend({}, questions[qi]);
+						var answers = result.users[ui].answers || [];
+						for (var ai = 0; ai < answers.length; ai++) {
+							var answer = answers[ai];
+							if (answer.qid == question.qid) {
+								$.extend(question, answer);
+								break;
+							}
+						}
+						user.questions.push(question);
+					}
+					data.users.push(user);
+				}
+				if (typeof callback === 'function') callback.call(window, data);
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.error('DB Load Error', {
+					jqXHR,
+					textStatus,
+					errorThrown
+				});
 			}
-		}
+
+		});
 	}
 
 	return {
@@ -312,6 +353,7 @@ var db = function () {
 		getUser,
 		getAnsweredQuestions,
 		getUnansweredQuestions,
-		recordAnswer
+		recordAnswer,
+		getDevSummary
 	};
 }();
