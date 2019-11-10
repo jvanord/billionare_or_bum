@@ -4,9 +4,19 @@
 <head>
 	<title>Billionaire or Bum?</title>
 	<style>
-	
+		.questions{
+		}
+		.questions li {
+			overflow: hidden;
+			max-width: 100%;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			list-style: none;
+			list-style-position: outside;
+		}
 	</style>
 </head>
+
 <body>
 	<div id="out"></div>
 	<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
@@ -14,30 +24,35 @@
 	<script>
 		$(function () {
 			$('#out').append($('<h1/>').text('Game Summary'));
-			db.getDevSummary(function(summary){
+			db.getDevSummary(function (summary) {
 				outSummary($('#out'), summary);
 			});
 		});
-		function outSummary($element, summary){
-			return dump($element, summary);
-			$.each(summary.users, function(i,user){
-				//outUserData(user);
-			});			
-		}
-		function outUserData($element, user){
-			$.each(user.questions, function(i,q){
-				outQuestionSummary(q);
+		function outSummary($element, summary) {
+			$.each(summary.users, function (i, user) {
+				var $div = $('<div/>').addClass('user').appendTo('#out');
+				outUserData($div, user);
 			});
 		}
-		function outQuestionSummary($element, question){
-
+		function outUserData($element, user) {
+			$element.append($('<h2/>').text(user.name));
+			$element.append($('<div/>').text(`${user.points} (${user.progress}) | ${user.email} | ${user.lastLogin}`));
+			var $ul = $('<ul/>').addClass('questions').appendTo($element);
+			$.each(user.questions, function (i, q) {
+				var $li = $('<li/>').appendTo($ul);
+				outQuestionSummary($li, q);
+			});
 		}
-		function outField($parent, label, value){
+		function outQuestionSummary($element, question) {
+			$element.text(`${question.qid} (${question.available}, ${question.correctAnswer}, ${question.points}) => ${question.correct == undefined ? 'NO ANSWER' : question.correct ? 'CORRECT' : 'WRONG'} ${question.description}`);
+		}
+		function outField($parent, label, value) {
 			$parent.append($('<div/>').append($('<label/>').text(label)).text(': ' + value));
 		}
-		function dump($element, data){
-			$element.css({'white-space':'pre'}).text(JSON.stringify(data, null, 2));
+		function dump($element, data) {
+			$element.css({ 'white-space': 'pre' }).text(JSON.stringify(data, null, 2));
 		}
 	</script>
 </body>
+
 </html>

@@ -5,6 +5,158 @@ var noUPDATE = {
 	//"totalPoints": 1000,
 	"questions": [
 		{
+			"qid": 38,
+			"available": "11/19/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/32.jpg",
+			"points": 15,
+			"description": "Who says we have to focus on living people? This is Marcus Licinius Crassus. He was the richest man in the world for most of his life - in Ancient Rome. He was sort of a mentor to Julius Caesar. He might have made himself king of Rome, but he went and got his head cut off by the Persians. Dumb ass."
+		},
+		{
+			"qid": 37,
+			"available": "11/18/2019",
+			"correctAnswer": "BUM",
+			"image": "i/31.jpg",
+			"points": 15,
+			"description": "This is a model for an article on ab exercises. Rich people don't have time to get abs like that."
+		},
+		{
+			"qid": 36,
+			"available": "11/17/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/27.jpg",
+			"points": 15,
+			"description": "Jeff Bezos, obviously, and his now ex-wife MacKenzie. That's right, she's available. You should get her number. ;)"
+		},
+		{
+			"qid": 35,
+			"available": "11/16/2019",
+			"correctAnswer": "BUM",
+			"image": "i/30.jpg",
+			"points": 15,
+			"description": "Nobody. I found this on a website for a campground in Georgia. I don�t think anyone goes there."
+		},
+		{
+			"qid": 34,
+			"available": "11/15/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/29.jpg",
+			"points": 15,
+			"description": "This is Jude Law and Sienna Miller and their kids - about 10 years ago. I didn't even know they were married and apparently now they're divorced. Anyway, they're both rich and famous."
+		},
+		{
+			"qid": 33,
+			"available": "11/14/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/28.jpg",
+			"points": 15,
+			"description": "This is Gwen Stefani. She got rich as the lead singer in No Doubt when I was in high school. Then she married the lead singer of Bush (Gavin Rossdale) and they became a \"power couple\". She's older than me and your mom."
+		},
+		{
+			"qid": 32,
+			"available": "11/13/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/26.jpg",
+			"points": 15,
+			"description": "Another easy one in case you need it. This is Warren Buffet, of course, the world's second richest person. No idea who the chick is. Maybe his granddaughter? His date? Both? Who knows what rich people do."
+		},
+		{
+			"qid": 31,
+			"available": "11/12/2019",
+			"correctAnswer": "BUM",
+			"image": "i/25.jpg",
+			"points": 15,
+			"description": "This is another stock photo - this time from a Pinterest page on formalwear for women."
+		},
+		{
+			"qid": 30,
+			"available": "11/11/2019",
+			"correctAnswer": "BUM",
+			"image": "i/22.jpg",
+			"points": 15,
+			"description": "This is from a fashion event in New York. Companies paid GQ to hire a bunch of models to wear their newest high-end fasions. They didn't pay them much."
+		},
+		{
+			"qid": 29,
+			"available": "11/10/2019",
+			"correctAnswer": "BUM",
+			"image": "i/21.jpg",
+			"points": 15,
+			"description": "Another stock photo. Look, you can see Big Ben in the background."
+		},
+		{
+			"qid": 28,
+			"available": "11/9/2019",
+			"correctAnswer": "BUM",
+			"image": "i/23.jpg",
+			"points": 15,
+			"description": "This is Julia Kelly, one of those Pinterest models that beg for free crap in exchange for \"exposure\". She is not rich - but she does have a lot of nice crap that she got for free."
+		},
+		{
+			"qid": 27,
+			"available": "11/8/2019",
+			"correctAnswer": "BUM",
+			"image": "i/20.jpg",
+			"points": 15,
+			"description": "This is a stock photo from an article on dressing well."
+		},
+		{
+			"qid": 26,
+			"available": "11/7/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/24.jpg",
+			"points": 15,
+			"description": "You said you needed an easy one. This is Neil Patrick Harris. If you forgot who he is, then I can't help you."
+		},
+		{
+			"qid": 25,
+			"available": "11/6/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/19.jpg",
+			"points": 10,
+			"description": "This is the richest woman in Australia, Gina Rinehart. She made a lot of money in mining."
+		},
+		{
+			"qid": 24,
+			"available": "11/5/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/18.jpg",
+			"points": 10,
+			"description": "This is Charles Koch, one of the famous Koch brothers that keep Republicans in power by convincing idiots that guns are more important than health care. BTW, it's pronounced like \"Coke\", not like \"Cock\"."
+		},
+		{
+			"qid": 23,
+			"available": "11/4/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/17.jpg",
+			"points": 10,
+			"description": "This is Julio Mario Santo Domingo, III. That's right, the third. His father and his grandfather have the same same. He's a disc jockey in New York. That's not why he's rich, though. His grandfather owns a beer company."
+		},
+		{
+			"qid": 22,
+			"available": "11/3/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/16.jpg",
+			"points": 10,
+			"description": "This guy's name is Said Gutseriev. His daddy gave him a bunch of companies."
+		},
+		{
+			"qid": 21,
+			"available": "11/2/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/15.jpg",
+			"points": 10,
+			"description": "This is Bobby Murphy, one of the founders of SnapChat."
+		},
+		{
+			"qid": 20,
+			"available": "11/1/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/14.jpeg",
+			"points": 10,
+			"description": "Jihan Wu is a Chinese billionaire that makes special computer chips for mining bitcoin."
+		},
+		{
 			"available": "2019-10-31",
 			"correctAnswer": "BILLIONAIRE",
 			"description": "This is Lewis Hamilton, a british Formula One race car driver. In 2016 he dressed up as the Joker for Halloween and people didn't recognize him.",
@@ -23,7 +175,7 @@ var noUPDATE = {
 		{
 			"available": "2019-10-29",
 			"correctAnswer": "BILLIONAIRE",
-			"description": "This is Melinda Gates, wife of Bill Gates and found of the 'Bill and Melinda Gates Foundation.",
+			"description": "This is Melinda Gates, wife of Bill Gates and founder of the 'Bill and Melinda Gates Foundation.",
 			"image": "i/2.png",
 			"points": 50,
 			"qid": 17
