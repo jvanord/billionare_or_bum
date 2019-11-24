@@ -5,6 +5,86 @@ var noUPDATE = {
 	//"totalPoints": 1000,
 	"questions": [
 		{
+			"qid": 48,
+			"available": "11/28/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/36.jpg",
+			"points": 100,
+			"description": "He may be a robot, but he's a very rich robot. If you got this wrong you don't deserve a new phone. Or college."
+		},
+		{
+			"qid": 47,
+			"available": "11/27/2019",
+			"correctAnswer": "BUM",
+			"image": "i/35.jpg",
+			"points": 20,
+			"description": "This guy claims to be a billionaire now (except when anyone asks him to prove it). But in the 1990s (when this photo was taken) he made a mess of things and was so in debt he had to declare bankruptcy."
+		},
+		{
+			"qid": 46,
+			"available": "11/26/2019",
+			"correctAnswer": "BUM",
+			"image": "i/34.jpg",
+			"points": 15,
+			"description": "This guy looks like a bum. Because he is. His son thinks he's got money for some reason - but he doesn't."
+		},
+		{
+			"qid": 45,
+			"available": "11/25/2019",
+			"correctAnswer": "BUM",
+			"image": "i/33.jpg",
+			"points": 15,
+			"description": "He looks rich, doesn't he? Fancy clothes. Expensive sunglasses. Brooklyn in the background. But yeah, he has no money. He broke."
+		},
+		{
+			"qid": 44,
+			"available": "11/24/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/42.jpg",
+			"points": 10,
+			"description": "This is the richest woman in Asia, Yang Huiyan. She's worth about $20 Billion. Most of that comes from a Chinese real estate company her father started."
+		},
+		{
+			"qid": 43,
+			"available": "11/23/2019",
+			"correctAnswer": "BILLIONAIRE",
+			"image": "i/41.jpg",
+			"points": 10,
+			"description": "This is Eric Tse. He's Chinese but just graduated from a US college and became a billionaire overnight - because his rich parents gave him shares of their company."
+		},
+		{
+			"qid": 42,
+			"available": "11/22/2019",
+			"correctAnswer": "BUM",
+			"image": "i/40.jpg",
+			"points": 10,
+			"description": "Another history one. This one is Spartacus, the famous Roman gladiator. He was a slave until he got tired of being a slave and started killing rich assholes. But he was never rich and eventually got nailed to a tree."
+		},
+		{
+			"qid": 41,
+			"available": "11/21/2019",
+			"correctAnswer": "BUM",
+			"image": "i/39.jpg",
+			"points": 10,
+			"description": "This is a model named David Gandy. Google says he's famous, but not rich."
+		},
+		{
+			"qid": 40,
+			"available": "11/20/2019",
+			"correctAnswer": "BUM",
+			"image": "i/38.jpg",
+			"points": 20,
+			"description": "A bit of a trick questions. This is Damian Lewis, an actor, playing  Bobbly Axelrod on the show \"Billions\". His character is a billionaire, but he isn't. Not yet anyway. He's a pretty good actor so he might be soon."
+		},
+		{
+			"qid": 39,
+			"available": "11/19/2019",
+			"correctAnswer": "BUM",
+			"image": "i/37.jpg",
+			"points": 10,
+			"description": "Another stock photo. The glasses make her look like a smart business worman. I bet she doesn't even wear glasses."
+		},
+		{
 			"qid": 38,
 			"available": "11/19/2019",
 			"correctAnswer": "BILLIONAIRE",
