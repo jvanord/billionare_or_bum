@@ -49,6 +49,7 @@ var app = function () {
 	}
 
 	function getDaysLeft() {
+		return 1;
 		var now = new Date();
 		var end = new Date('2019-11-28T05:00:00Z');
 		if (now > end) return 0;
